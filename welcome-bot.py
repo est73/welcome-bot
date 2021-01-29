@@ -23,7 +23,7 @@ class WelcomeBot(discord.Client):
         self.invites = await invite.guild.invites()
 
     async def on_member_join(self, member):
-
+        invites_after_join = await member.guild.invites()
         welcome_text = [
             "{0} joined the party. {1}",
             "{0} is here. {1}",
@@ -46,7 +46,7 @@ class WelcomeBot(discord.Client):
                     return inv
 
         for invite in self.invites:
-            if invite.uses < find_invite(await member.guild.invites(), invite.code).uses:
+            if invite.uses < find_invite(invites_after_join, invite.code).uses:
                 channel = await self.fetch_channel(config.welcome)
                 emoji = config.bot_emoji if invite.inviter.id == int(config.bot) else str()
                 await channel.send(random.choice(welcome_text).format(member.mention, emoji))
