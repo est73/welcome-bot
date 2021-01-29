@@ -16,7 +16,7 @@ A simple discord bot for Pokebattler Raid Party raid invites.
 - `deactivate`
 - `cp ~/welcome-bot/config-example.py ~/welcome-bot/config.py`
 - `nano ~/welcome-bot/config.py`
-- `nohup ~/welcome-bot/venv/bin/python3 ~/welcome-bot/welcome-bot.py &`
+- `nohup ~/welcome-bot/venv/bin/python3 ~/welcome-bot/bot.py &`
 
 ## Requirements
 
