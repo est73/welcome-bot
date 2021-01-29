@@ -9,7 +9,7 @@ A simple discord bot for Pokebattler Raid Party raid invites.
 
 ## Setup
 
-- `git clone --depth 1 -b master git@github.com:est73/welcome-bot.git`
+- `git clone git@github.com:est73/welcome-bot.git`
 - `python3 -m venv ~/welcome-bot/venv`
 - `. ~/welcome-bot/venv/bin/activate`
 - `pip install -U -r ~/welcome-bot/requirements.txt`
