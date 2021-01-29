@@ -48,7 +48,7 @@ class WelcomeBot(discord.Client):
         for invite in self.invites:
             if invite.uses < find_invite(await member.guild.invites(), invite.code).uses:
                 channel = await self.fetch_channel(config.welcome)
-                emoji = config.bot_emoji if invite.inviter.id == config.bot else str()
+                emoji = config.bot_emoji if invite.inviter.id == int(config.bot) else str()
                 await channel.send(random.choice(welcome_text).format(member.mention, emoji))
                 self.invites = await member.guild.invites()
 
