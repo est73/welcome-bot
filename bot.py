@@ -24,6 +24,7 @@ class WelcomeBot(discord.Client):
 
     async def on_member_join(self, member):
         invites_after_join = await member.guild.invites()
+        channel = await self.fetch_channel(config.welcome)
         welcome_text = [
             "{0} joined the party. {1}",
             "{0} is here. {1}",
@@ -47,10 +48,10 @@ class WelcomeBot(discord.Client):
 
         for invite in self.invites:
             if invite.uses < find_invite(invites_after_join, invite.code).uses:
-                channel = await self.fetch_channel(config.welcome)
                 emoji = config.bot_emoji if invite.inviter.id == int(config.bot) else str()
                 await channel.send(random.choice(welcome_text).format(member.mention, emoji))
-                self.invites = await member.guild.invites()
+
+        self.invites = await member.guild.invites()
 
     async def on_member_remove(self, member):
         self.invites = await member.guild.invites()
