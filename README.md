@@ -5,8 +5,10 @@ A simple discord bot for Pokebattler Raid Party raid invites.
 ## Discord Bot Requirements
 
 - Scope: Bot
-- Bot Permissions: Manage Server
-
+- Bot Permissions:
+  - Manage Channels
+  - Manage Server
+    
 ## Setup
 
 - `git clone git@github.com:est73/welcome-bot.git`
