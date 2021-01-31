@@ -1,5 +1,7 @@
 import config
 import discord
+import logging
+import os
 import random
 
 
@@ -7,6 +9,11 @@ class WelcomeBot(discord.Client):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.invites = []
+        self.logger = logging.getLogger('discord')
+        self.logger.setLevel(logging.DEBUG)
+        self.handler = logging.FileHandler(filename=os.path.join('../', 'welcome-bot.log'), encoding='utf-8', mode='w')
+        self.handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+        self.logger.addHandler(self.handler)
 
     async def on_ready(self):
         print('Logged in as')
