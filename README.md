@@ -1,6 +1,6 @@
 ## WelcomeBot
 
-A simple discord bot for Pokebattler Raid Party raid invites.
+A simple Discord bot for Pokebattler Raid Party raid invites.
 
 ## Discord Bot Requirements
 
