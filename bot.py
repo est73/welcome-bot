@@ -64,14 +64,13 @@ class WelcomeBot(discord.Client):
                 return
 
     async def on_member_remove(self, member):
-        if self.temp_member[member.id]:
+        self.invites = await member.guild.invites()
+        if self.temp_member.get(member.id):
             channel = member.guild.get_channel(int(config.welcome))
             message = await channel.fetch_message(self.temp_member[member.id])
+            del self.temp_member[member.id]
             if datetime.utcnow() < message.created_at + timedelta(minutes=30):
                 await message.delete()
-                del self.temp_member[member.id]
-
-        self.invites = await member.guild.invites()
 
 
 intents = discord.Intents.default()
