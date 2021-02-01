@@ -1,3 +1,4 @@
+from datetime import timedelta, datetime
 import config
 import discord
 import logging
@@ -13,6 +14,7 @@ class WelcomeBot(discord.Client):
         self.handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         self.logger.addHandler(self.handler)
         self.invites = []
+        self.temp_member = {}
 
     async def on_ready(self):
         print('Logged in as')
@@ -56,11 +58,19 @@ class WelcomeBot(discord.Client):
         for invite in self.invites:
             if invite.uses < find_invite(invites_after_join, invite.code).uses:
                 emoji = config.bot_emoji if invite.inviter.id == int(config.bot) else str()
-                await channel.send(random.choice(welcome_text).format(member.mention, emoji))
+                message = await channel.send(random.choice(welcome_text).format(member.mention, emoji))
+                self.temp_member[member.id] = message.id
                 self.invites = await member.guild.invites()
                 return
 
     async def on_member_remove(self, member):
+        if self.temp_member[member.id]:
+            channel = member.guild.get_channel(int(config.welcome))
+            message = await channel.fetch_message(self.temp_member[member.id])
+            if datetime.utcnow() < message.created_at + timedelta(minutes=30):
+                await message.delete()
+                del self.temp_member[member.id]
+
         self.invites = await member.guild.invites()
 
 
