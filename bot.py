@@ -50,6 +50,8 @@ class WelcomeBot(discord.Client):
             "Yay you made it, {0}! {1}",
         ]
 
+        await member.add_roles(discord.utils.get(member.guild.roles, name='Member'))
+
         def find_invite(invites, code):
             for inv in invites:
                 if inv.code == code:
